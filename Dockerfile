@@ -3,9 +3,15 @@ FROM nvidia/cuda:12.4.1-base-ubuntu22.04 as nvidia
 ENV DEBIAN_FRONTEND=noninteractive
 ARG LOLMINER_VERSION=1.88
 
-RUN apt-get update && \
-    apt-get install -y wget tar curl libcurl4 && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    curl \
+    libcurl4 \
+    tar \
+    wget \
+    build-essential \
+    cuda-nvml-dev-12-4 \
+    libnvidia-compute-525 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/Lolliedieb/lolMiner-releases/releases/download/${LOLMINER_VERSION}/lolMiner_v${LOLMINER_VERSION}_Lin64.tar.gz -O /tmp/lolMiner.tar.gz && \
     mkdir -p /opt/lolminer && \
